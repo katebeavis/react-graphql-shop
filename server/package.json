@@ -1,0 +1,28 @@
+{
+  "name": "react-graphql-shop-server",
+  "version": "1.0.0",
+  "author": "Kate Beavis",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "start": "nodemon -e js,graphql -x ts-node src/index.ts",
+    "dev": "nodemon -e js,graphql -x ts-node src/index.ts",
+    "test": "jest"
+  },
+  "dependencies": {
+    "babel-preset-env": "^1.7.0",
+    "cookie-parser": "^1.4.4",
+    "dotenv": "^8.2.0",
+    "graphql": "^14.5.8",
+    "graphql-cli": "^3.0.14",
+    "graphql-yoga": "^1.18.3",
+    "nodemon": "^2.0.1",
+    "ts-node": "^8.5.2",
+    "typescript": "^3.7.2"
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ]
+  }
+}
