@@ -54,3 +54,5 @@ screenshots/
 *console.d.ts
 
 *.env
+
+*.next
