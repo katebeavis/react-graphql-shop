@@ -1,10 +1,7 @@
-const Home = ({ userAgent }: any) => (
-  <h1>Hello world! - user agent: {userAgent}</h1>
+const Home = () => (
+  <>
+    <h1>Hello world!</h1>
+  </>
 );
-
-Home.getInitialProps = async ({ req }: any) => {
-  const userAgent = req ? req.headers["user-agent"] : navigator.userAgent;
-  return { userAgent };
-};
 
 export default Home;
