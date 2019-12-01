@@ -56,3 +56,5 @@ screenshots/
 *.env
 
 *.next
+
+*.generated
