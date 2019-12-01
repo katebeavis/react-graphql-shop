@@ -7,7 +7,8 @@
   "scripts": {
     "start": "nodemon -e js,graphql -x ts-node src/index.ts",
     "dev": "nodemon -e js,graphql -x ts-node src/index.ts",
-    "test": "jest --passWithNoTests"
+    "test": "jest --passWithNoTests",
+    "deploy": "NODE_TLS_REJECT_UNAUTHORIZED=0 prisma deploy"
   },
   "dependencies": {
     "@types/cookie-parser": "^1.4.2",
