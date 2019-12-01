@@ -6,18 +6,16 @@ import Nav from '../Nav/Nav';
 
 import { Logo, Bar, SubBar } from './style';
 
-Router.events.on('routeChangeStart', () => {
-  NProgress.start();
-});
-
-Router.events.on('routeChangeComplete', () => {
-  NProgress.done();
-});
-
-Router.events.on('routeChangeError', error => {
+const handleRouteChange = () => NProgress.start();
+const handleRouteChangeComplete = () => NProgress.done();
+const handleRouteChangeError = (error: any) => {
   NProgress.done();
   console.log('error: ', error);
-});
+};
+
+Router.events.on('routeChangeStart', handleRouteChange);
+Router.events.on('routeChangeComplete', handleRouteChangeComplete);
+Router.events.on('routeChangeError', handleRouteChangeError);
 
 const Header = () => (
   <>
