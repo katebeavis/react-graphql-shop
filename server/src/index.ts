@@ -1,6 +1,8 @@
-require('dotenv').config();
+import * as dotenv from 'dotenv';
 import createServer from './createServer';
 // import db from './db';
+
+dotenv.config();
 
 const server = createServer();
 
