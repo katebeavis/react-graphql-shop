@@ -1,0 +1,28 @@
+{
+  "name": "react-graphql-shop",
+  "version": "1.0.0",
+  "dependencies": {
+    "@commitlint/cli": "^8.2.0",
+    "@commitlint/config-conventional": "^8.2.0",
+    "husky": "^3.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "dev": "cd server && yarn dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/katebeavis/react-graphql-shop.git"
+  },
+  "author": "Kate Beavis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/katebeavis/react-graphql-shop/issues"
+  },
+  "homepage": "https://github.com/katebeavis/react-graphql-shop#readme",
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  }
+}
