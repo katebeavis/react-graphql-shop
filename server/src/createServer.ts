@@ -6,7 +6,7 @@ import db from './db';
 
 const createServer = () => {
   return new GraphQLServer({
-    typeDefs: './schema.graphql',
+    typeDefs: __dirname + '/schema.graphql',
     resolvers: { Query, Mutation },
     resolverValidationOptions: {
       requireResolversForResolveType: false

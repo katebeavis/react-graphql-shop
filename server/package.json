@@ -6,7 +6,9 @@
   "private": false,
   "scripts": {
     "start": "nodemon -e js,graphql -x ts-node src/index.ts",
-    "dev": "nodemon -e js,graphql -x ts-node src/index.ts",
+    "debug": "nodemon -e js,graphql -x ts-node --inspect",
+    "dev": "concurrently \"yarn start\" \"yarn playground\"",
+    "playground": "NODE_TLS_REJECT_UNAUTHORIZED=0 graphql playground --dotenv .env",
     "test": "jest --passWithNoTests",
     "deploy": "NODE_TLS_REJECT_UNAUTHORIZED=0 prisma deploy"
   },
@@ -15,10 +17,11 @@
     "@types/jsonwebtoken": "^8.3.5",
     "@types/node": "^12.12.14",
     "babel-preset-env": "^1.7.0",
+    "concurrently": "^5.0.0",
     "cookie-parser": "^1.4.4",
     "dotenv": "^8.2.0",
     "graphql": "^14.5.8",
-    "graphql-cli": "4.0.0-alpha.10",
+    "graphql-cli": "^2.16.7",
     "graphql-yoga": "^1.18.3",
     "prisma-binding": "^2.3.16",
     "ts-node": "^8.5.2",
