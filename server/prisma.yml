@@ -1,5 +1,5 @@
 endpoint: ${env:PRISMA_URL}
-datamodel: datamodel.prisma
+datamodel: datamodel.graphql
 
 generate:
   - generator: typescript-client

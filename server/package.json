@@ -7,7 +7,7 @@
   "scripts": {
     "start": "nodemon -e js,graphql -x ts-node src/index.ts",
     "debug": "nodemon -e js,graphql -x ts-node --inspect",
-    "dev": "concurrently \"yarn start\" \"yarn playground\"",
+    "dev": "concurrently \"NODE_TLS_REJECT_UNAUTHORIZED=0 yarn start\" \"yarn playground\"",
     "playground": "NODE_TLS_REJECT_UNAUTHORIZED=0 graphql playground --dotenv .env",
     "test": "jest --passWithNoTests",
     "deploy": "NODE_TLS_REJECT_UNAUTHORIZED=0 prisma deploy"
