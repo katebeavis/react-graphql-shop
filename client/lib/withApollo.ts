@@ -8,7 +8,6 @@ const createClient = ({ headers }: any) => {
       process.env.NODE_ENV === 'development'
         ? GRAPHQL_ENDPOINT
         : GRAPHQL_ENDPOINT,
-
     request: operation => {
       operation.setContext({
         fetchOptions: {
