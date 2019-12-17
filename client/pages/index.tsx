@@ -1,3 +1,5 @@
-const Home = () => <h1>Hello world!</h1>;
+import Items from '../components/Items/Items';
+
+const Home = () => <Items />;
 
 export default Home;
