@@ -10,14 +10,19 @@ const defaultOptions = {
   minimumFractionDigits: 2
 };
 
-const formatCurrency = (
-  amount: number,
-  options: Options = defaultOptions,
-  format: string = 'en-GB'
-) => {
+interface FormatCurrency {
+  amount: number;
+  options?: Options;
+  format?: string;
+}
+
+const formatCurrency = ({
+  amount,
+  options = defaultOptions,
+  format = 'en-GB'
+}: FormatCurrency) => {
   if (amount % 100 === 0) options.minimumFractionDigits = 0;
-  const formatter = new Intl.NumberFormat(format, options);
-  return formatter.format(amount);
+  return new Intl.NumberFormat(format, options).format(amount);
 };
 
 export default formatCurrency;

@@ -26,7 +26,7 @@ const ItemCard = ({ item }: ItemCard) => {
           <a>{title}</a>
         </Link>
       </Title>
-      <PriceTag>{formatCurrency(price)}</PriceTag>
+      <PriceTag>{formatCurrency({ amount: price })}</PriceTag>
       <p>{description}</p>
       <ButtonList>
         <Link href={{ pathname: 'update', query: { id } }}>
