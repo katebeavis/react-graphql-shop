@@ -16,4 +16,5 @@ type Mutation {
     updatedAt: DateTime
   ): Item!
   updateItem(id: ID!, title: String, description: String, price: Float): Item!
+  deleteItem(id: ID!): Item
 }

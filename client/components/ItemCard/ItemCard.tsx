@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Title, Item, PriceTag, ButtonList } from './ItemCard.style';
 import { ITEM_ROUTE } from '../../constants/routes';
 import formatCurrency from '../../lib/formatCurrency';
+import DeleteItem from '../DeleteItem/DeleteItem';
 
 interface ItemCard {
   item: Item;
@@ -33,7 +34,7 @@ const ItemCard = ({ item }: ItemCard) => {
           <a>Edit ✏️</a>
         </Link>
         <button>Add to cart</button>
-        <button>Delete</button>
+        <DeleteItem id={id}>Delete item</DeleteItem>
       </ButtonList>
     </Item>
   );

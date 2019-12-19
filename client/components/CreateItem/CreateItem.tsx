@@ -88,7 +88,7 @@ const CreateItem = () => {
     });
   };
 
-  const handleSubmit = (event: SyntheticEvent) => {
+  const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault();
     const { title, description, price } = item;
     try {

@@ -10,7 +10,6 @@ const handleRouteChange = () => NProgress.start();
 const handleRouteChangeComplete = () => NProgress.done();
 const handleRouteChangeError = (error: any) => {
   NProgress.done();
-  console.log('error: ', error);
 };
 
 Router.events.on('routeChangeStart', handleRouteChange);
