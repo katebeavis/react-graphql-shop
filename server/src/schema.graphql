@@ -2,6 +2,7 @@
 
 type Query {
   items: [Item]!
+  item(where: ItemWhereUniqueInput!): Item
 }
 
 type Mutation {
@@ -14,4 +15,5 @@ type Mutation {
     createdAt: DateTime
     updatedAt: DateTime
   ): Item!
+  updateItem(id: ID!, title: String, description: String, price: Float): Item!
 }

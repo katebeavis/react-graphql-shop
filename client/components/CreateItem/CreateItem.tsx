@@ -88,7 +88,7 @@ const CreateItem = () => {
     });
   };
 
-  const handleSubmit = async (event: SyntheticEvent) => {
+  const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
     const { title, description, price } = item;
     try {
@@ -102,7 +102,10 @@ const CreateItem = () => {
           largeImage: response.eager[0].secure_url
         }
       });
-    } catch (error) {}
+    } catch (error) {
+      // TODO how to deal with error
+      console.log('there was an error!');
+    }
   };
 
   return (
