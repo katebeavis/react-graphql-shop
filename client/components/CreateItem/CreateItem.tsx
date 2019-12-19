@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, SyntheticEvent } from 'react';
 import { useMutation } from 'react-apollo';
 import { useRouter } from 'next/router';
 
@@ -88,7 +88,7 @@ const CreateItem = () => {
     });
   };
 
-  const handleSubmit = async (event: any) => {
+  const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault();
     const { title, description, price } = item;
     try {
