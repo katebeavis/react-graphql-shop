@@ -11,6 +11,17 @@ const Mutation = {
       info
     );
     return item;
+  },
+  async updateItem(parent: any, args: any, context: Context, info: any) {
+    const { id, ...updates } = args;
+    const item = await context.db.mutation.updateItem(
+      {
+        data: { ...updates },
+        where: { id }
+      },
+      info
+    );
+    return item;
   }
 };
 
