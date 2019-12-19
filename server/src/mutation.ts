@@ -22,6 +22,22 @@ const Mutation = {
       info
     );
     return item;
+  },
+  async deleteItem(parent: any, args: any, context: Context, info: any) {
+    const { id } = args;
+    // const item = await context.db.query.item(
+    //   {
+    //     where: { id }
+    //   },
+    //   `{ id title }`
+    // );
+    const item = await context.db.mutation.deleteItem(
+      {
+        where: { id }
+      },
+      info
+    );
+    return item;
   }
 };
 
