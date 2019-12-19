@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, SyntheticEvent } from 'react';
 import { useMutation } from 'react-apollo';
 import { useRouter } from 'next/router';
 
@@ -6,6 +6,7 @@ import { Form } from './CreateItem.style';
 import { CREATE_ITEM_MUTATION } from '../../mutations/mutations';
 import Error from '../Error/Error';
 import { ITEM_ROUTE } from '../../constants/routes';
+import { CLOUDINARY_URL } from '../../config';
 
 interface Item {
   title: string;
@@ -24,6 +25,8 @@ const CreateItem = () => {
     largeImage: '',
     price: 0
   });
+  const [file, setFile] = useState<any>(null);
+  const [fileUploading, setFileUploading] = useState<boolean>(false);
 
   const [mutate, { loading, error }] = useMutation(CREATE_ITEM_MUTATION, {
     onCompleted: data => {
@@ -31,6 +34,46 @@ const CreateItem = () => {
       router.push({ pathname: ITEM_ROUTE, query: { id } });
     }
   });
+
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const files = event.target.files;
+    files && setFile(files[0]);
+
+    if (files) {
+      const reader = new FileReader();
+      const img: HTMLImageElement = document.querySelector('img')!;
+
+      reader.onload = (event: ProgressEvent<FileReader>) => {
+        if (event && event.target) {
+          const elem = event.target.result;
+          img.src = elem as string;
+        }
+      };
+
+      reader.readAsDataURL(files[0]);
+    }
+  };
+
+  const uploadFile = async () => {
+    setFileUploading(true);
+    const data = new FormData();
+    data.append('file', file);
+    data.append('upload_preset', 'react-graphql-shop');
+    try {
+      const response = await fetch(CLOUDINARY_URL, {
+        method: 'post',
+        body: data
+      });
+      const file = await response.json();
+      setFileUploading(false);
+      return file;
+    } catch (error) {
+      // TODO how to deal with error
+      console.log('there was an error!');
+    }
+  };
 
   const handleChange = (
     event:
@@ -45,25 +88,43 @@ const CreateItem = () => {
     });
   };
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault();
-    const { title, description, price, image, largeImage } = item;
-    mutate({
-      variables: {
-        title,
-        description,
-        price,
-        image,
-        largeImage
-      }
-    });
+    const { title, description, price } = item;
+    try {
+      const response = await uploadFile();
+      mutate({
+        variables: {
+          title,
+          description,
+          price,
+          image: response.secure_url,
+          largeImage: response.eager[0].secure_url
+        }
+      });
+    } catch (error) {}
   };
 
   return (
     <Form onSubmit={handleSubmit}>
       <Error error={error} />
       <h2>Sell an item</h2>
-      <fieldset disabled={loading} aria-busy={loading}>
+      <fieldset
+        disabled={loading || fileUploading}
+        aria-busy={loading || fileUploading}
+      >
+        <label htmlFor='file'>
+          Image
+          <input
+            type='file'
+            id='file'
+            name='file'
+            placeholder='Upload an image'
+            onChange={handleFileChange}
+            required
+          />
+          <img id='something' src='' alt='Upload preview' width='200' />
+        </label>
         <label htmlFor='title'>
           Title
           <input
