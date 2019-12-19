@@ -8,7 +8,7 @@ type Mutation {
   createItem(
     title: String
     description: String
-    price: Int
+    price: Float
     image: String
     largeImage: String
     createdAt: DateTime

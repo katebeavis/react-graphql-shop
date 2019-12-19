@@ -243,14 +243,14 @@ export interface ItemWhereInput {
   largeImage_not_starts_with?: Maybe<String>;
   largeImage_ends_with?: Maybe<String>;
   largeImage_not_ends_with?: Maybe<String>;
-  price?: Maybe<Int>;
-  price_not?: Maybe<Int>;
-  price_in?: Maybe<Int[] | Int>;
-  price_not_in?: Maybe<Int[] | Int>;
-  price_lt?: Maybe<Int>;
-  price_lte?: Maybe<Int>;
-  price_gt?: Maybe<Int>;
-  price_gte?: Maybe<Int>;
+  price?: Maybe<Float>;
+  price_not?: Maybe<Float>;
+  price_in?: Maybe<Float[] | Float>;
+  price_not_in?: Maybe<Float[] | Float>;
+  price_lt?: Maybe<Float>;
+  price_lte?: Maybe<Float>;
+  price_gt?: Maybe<Float>;
+  price_gte?: Maybe<Float>;
   createdAt?: Maybe<DateTimeInput>;
   createdAt_not?: Maybe<DateTimeInput>;
   createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -330,7 +330,7 @@ export interface ItemCreateInput {
   description: String;
   image?: Maybe<String>;
   largeImage?: Maybe<String>;
-  price: Int;
+  price: Float;
 }
 
 export interface ItemUpdateInput {
@@ -338,7 +338,7 @@ export interface ItemUpdateInput {
   description?: Maybe<String>;
   image?: Maybe<String>;
   largeImage?: Maybe<String>;
-  price?: Maybe<Int>;
+  price?: Maybe<Float>;
 }
 
 export interface ItemUpdateManyMutationInput {
@@ -346,7 +346,7 @@ export interface ItemUpdateManyMutationInput {
   description?: Maybe<String>;
   image?: Maybe<String>;
   largeImage?: Maybe<String>;
-  price?: Maybe<Int>;
+  price?: Maybe<Float>;
 }
 
 export interface UserCreateInput {
@@ -397,7 +397,7 @@ export interface Item {
   description: String;
   image?: String;
   largeImage?: String;
-  price: Int;
+  price: Float;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
@@ -408,7 +408,7 @@ export interface ItemPromise extends Promise<Item>, Fragmentable {
   description: () => Promise<String>;
   image: () => Promise<String>;
   largeImage: () => Promise<String>;
-  price: () => Promise<Int>;
+  price: () => Promise<Float>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -421,7 +421,7 @@ export interface ItemSubscription
   description: () => Promise<AsyncIterator<String>>;
   image: () => Promise<AsyncIterator<String>>;
   largeImage: () => Promise<AsyncIterator<String>>;
-  price: () => Promise<AsyncIterator<Int>>;
+  price: () => Promise<AsyncIterator<Float>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
@@ -434,7 +434,7 @@ export interface ItemNullablePromise
   description: () => Promise<String>;
   image: () => Promise<String>;
   largeImage: () => Promise<String>;
-  price: () => Promise<Int>;
+  price: () => Promise<Float>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -645,7 +645,7 @@ export interface ItemPreviousValues {
   description: String;
   image?: String;
   largeImage?: String;
-  price: Int;
+  price: Float;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
@@ -658,7 +658,7 @@ export interface ItemPreviousValuesPromise
   description: () => Promise<String>;
   image: () => Promise<String>;
   largeImage: () => Promise<String>;
-  price: () => Promise<Int>;
+  price: () => Promise<Float>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -671,7 +671,7 @@ export interface ItemPreviousValuesSubscription
   description: () => Promise<AsyncIterator<String>>;
   image: () => Promise<AsyncIterator<String>>;
   largeImage: () => Promise<AsyncIterator<String>>;
-  price: () => Promise<AsyncIterator<Int>>;
+  price: () => Promise<AsyncIterator<Float>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
@@ -735,9 +735,9 @@ The `String` scalar type represents textual data, represented as UTF-8 character
 export type String = string;
 
 /*
-The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
+The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point).
 */
-export type Int = number;
+export type Float = number;
 
 /*
 DateTime scalar input type, allowing Date
@@ -748,6 +748,11 @@ export type DateTimeInput = Date | string;
 DateTime scalar output type, which is always a string
 */
 export type DateTimeOutput = string;
+
+/*
+The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
+*/
+export type Int = number;
 
 /*
 The `Boolean` scalar type represents `true` or `false`.

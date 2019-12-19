@@ -10,7 +10,7 @@ type Item {
   description: String!
   image: String
   largeImage: String
-  price: Int!
+  price: Float!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
