@@ -1,3 +1,5 @@
-const Sell = () => <h1>Sell things!</h1>;
+import CreateItem from '../components/CreateItem/CreateItem';
+
+const Sell = () => <CreateItem />;
 
 export default Sell;

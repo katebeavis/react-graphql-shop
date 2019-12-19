@@ -18,7 +18,7 @@ type Item {
   description: String!
   image: String
   largeImage: String
-  price: Int!
+  price: Float!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -35,7 +35,7 @@ input ItemCreateInput {
   description: String!
   image: String
   largeImage: String
-  price: Int!
+  price: Float!
 }
 
 type ItemEdge {
@@ -68,7 +68,7 @@ type ItemPreviousValues {
   description: String!
   image: String
   largeImage: String
-  price: Int!
+  price: Float!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -96,7 +96,7 @@ input ItemUpdateInput {
   description: String
   image: String
   largeImage: String
-  price: Int
+  price: Float
 }
 
 input ItemUpdateManyMutationInput {
@@ -104,7 +104,7 @@ input ItemUpdateManyMutationInput {
   description: String
   image: String
   largeImage: String
-  price: Int
+  price: Float
 }
 
 input ItemWhereInput {
@@ -178,14 +178,14 @@ input ItemWhereInput {
   largeImage_not_starts_with: String
   largeImage_ends_with: String
   largeImage_not_ends_with: String
-  price: Int
-  price_not: Int
-  price_in: [Int!]
-  price_not_in: [Int!]
-  price_lt: Int
-  price_lte: Int
-  price_gt: Int
-  price_gte: Int
+  price: Float
+  price_not: Float
+  price_in: [Float!]
+  price_not_in: [Float!]
+  price_lt: Float
+  price_lte: Float
+  price_gt: Float
+  price_gte: Float
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
