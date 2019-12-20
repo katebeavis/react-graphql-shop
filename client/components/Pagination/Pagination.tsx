@@ -1,5 +1,4 @@
 import { useQuery } from 'react-apollo';
-import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
 
@@ -8,9 +7,11 @@ import { PAGINATION_QUERY } from '../../queries/queries';
 import Error from '../Error/Error';
 import { PER_PAGE } from '../../config';
 
-const Pagination = () => {
-  const router = useRouter();
-  const { page } = router.query;
+interface Pagination {
+  currentPage: number;
+}
+
+const Pagination = ({ currentPage }: Pagination) => {
   const { loading, error, data } = useQuery(PAGINATION_QUERY);
 
   if (loading) {
@@ -23,7 +24,6 @@ const Pagination = () => {
 
   const { count } = data.itemsConnection.aggregate;
   const pages = Math.ceil(count / PER_PAGE);
-  const currentPage = parseInt(page[0]) || 1;
   return (
     <Container>
       <Head>
