@@ -20,6 +20,7 @@ export const SINGLE_ITEM_QUERY = gql`
       title
       price
       description
+      largeImage
     }
   }
 `;
