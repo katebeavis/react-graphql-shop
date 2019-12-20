@@ -13,7 +13,8 @@ const Query = {
     const { id } = args.where;
     const item = await context.db.query.item({ where: { id } });
     return item;
-  }
+  },
+  itemsConnection: forwardTo('db')
 };
 
 export default Query;
