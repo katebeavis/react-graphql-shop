@@ -12,7 +12,7 @@ interface User {
   password: string;
 }
 
-const Signup = () => {
+const SignUp = () => {
   const [user, setUser] = useState<User>({
     email: '',
     name: '',
