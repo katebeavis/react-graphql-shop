@@ -1,7 +1,7 @@
 import { useState, SyntheticEvent } from 'react';
 import { useMutation } from 'react-apollo';
 
-import { Form } from '../CreateItem/CreateItem.style';
+import { Form } from '../../shared/shared.style';
 import { CREATE_USER_MUTATION } from '../../mutations/mutations';
 import Error from '../Error/Error';
 
