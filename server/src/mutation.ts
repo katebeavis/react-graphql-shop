@@ -71,6 +71,33 @@ const Mutation = {
       maxAge: 1000 * 60 * 60 * 24 * 365
     });
     return user;
+  },
+  async signin(parent: any, args: any, context: Context, info: any) {
+    const { email, password } = args;
+    const user = await context.db.query.user({
+      where: {
+        email
+      }
+    });
+    if (!user) {
+      throw new Error(`No user with that email`);
+    }
+    const valid = await bcrypt.compare(password, user.password);
+    if (!valid) {
+      throw new Error('Invalid password');
+    }
+    const userId = user.id;
+    const token = jwt.sign(
+      {
+        userId
+      },
+      process.env.APP_SECRET
+    );
+    context.response.cookie('token', token, {
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 24 * 365
+    });
+    return user;
   }
 };
 
