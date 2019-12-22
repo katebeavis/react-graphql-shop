@@ -10,8 +10,8 @@ import { PER_PAGE } from '../../config';
 
 const Items = () => {
   const router = useRouter();
-  const { page } = router.query;
-  const currentPage = parseInt(page[0]) || 1;
+  const page = router.query.page || ['1'];
+  const currentPage = parseInt(page[0]);
   const skip = currentPage * PER_PAGE - currentPage;
 
   const { loading, error, data } = useQuery(ALL_ITEMS_QUERY, {

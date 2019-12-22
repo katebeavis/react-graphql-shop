@@ -36,3 +36,14 @@ export const PAGINATION_QUERY = gql`
     }
   }
 `;
+
+export const CURRENT_USER_QUERY = gql`
+  query CURRENT_USER_QUERY {
+    userDetails {
+      id
+      email
+      name
+      permissions
+    }
+  }
+`;
