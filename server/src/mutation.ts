@@ -1,7 +1,19 @@
+import * as dotenv from 'dotenv';
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
+dotenv.config();
+
+const SALT_ROUNDS = 10;
+const USER = 'USER';
+
+// TODO get db type from prisma
 interface Context {
   db: any;
+  response: any;
 }
 
+// TODO add types
 const Mutation = {
   async createItem(parent: any, args: any, context: Context, info: any) {
     const item = await context.db.mutation.createItem(
@@ -25,12 +37,6 @@ const Mutation = {
   },
   async deleteItem(parent: any, args: any, context: Context, info: any) {
     const { id } = args;
-    // const item = await context.db.query.item(
-    //   {
-    //     where: { id }
-    //   },
-    //   `{ id title }`
-    // );
     const item = await context.db.mutation.deleteItem(
       {
         where: { id }
@@ -38,6 +44,33 @@ const Mutation = {
       info
     );
     return item;
+  },
+  async signup(parent: any, args: any, context: Context, info: any) {
+    const { name, email, password } = args;
+    const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+    const user = await context.db.mutation.createUser(
+      {
+        data: {
+          name,
+          email: email.toLowerCase(),
+          password: hashedPassword,
+          permissions: { set: [USER] }
+        }
+      },
+      info
+    );
+    const userId = user.id;
+    const token = jwt.sign(
+      {
+        userId
+      },
+      process.env.APP_SECRET
+    );
+    context.response.cookie('token', token, {
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 24 * 365
+    });
+    return user;
   }
 };
 
