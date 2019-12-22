@@ -9,6 +9,7 @@ import {
 } from '../../constants/routes';
 import { NavStyles, SLink } from './style';
 import useAuth from '../../customHooks/useAuth';
+import SignOut from '../SignOut/SignOut';
 
 const Nav = () => {
   const [{ loading, authUser }] = useAuth();
@@ -33,6 +34,7 @@ const Nav = () => {
           <Link href={ME_ROUTE}>
             <SLink>Account</SLink>
           </Link>
+          <SignOut />
         </>
       )}
       {!isAuthenticated && (

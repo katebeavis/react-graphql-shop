@@ -55,7 +55,7 @@ export const CREATE_USER_MUTATION = gql`
     $name: String!
     $password: String!
   ) {
-    signup(email: $email, name: $name, password: $password) {
+    signUp(email: $email, name: $name, password: $password) {
       id
       email
       name
@@ -65,10 +65,18 @@ export const CREATE_USER_MUTATION = gql`
 
 export const SIGN_IN_MUTATION = gql`
   mutation SIGN_IN_MUTATION($email: String!, $password: String!) {
-    signin(email: $email, password: $password) {
+    signIn(email: $email, password: $password) {
       id
       email
       name
+    }
+  }
+`;
+
+export const SIGN_OUT_MUTATION = gql`
+  mutation SIGN_OUT_MUTATION {
+    signOut {
+      message
     }
   }
 `;

@@ -45,7 +45,7 @@ const Mutation = {
     );
     return item;
   },
-  async signup(parent: any, args: any, context: Context, info: any) {
+  async signUp(parent: any, args: any, context: Context, info: any) {
     const { name, email, password } = args;
     const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
     const user = await context.db.mutation.createUser(
@@ -72,7 +72,7 @@ const Mutation = {
     });
     return user;
   },
-  async signin(parent: any, args: any, context: Context, info: any) {
+  async signIn(parent: any, args: any, context: Context, info: any) {
     const { email, password } = args;
     const user = await context.db.query.user({
       where: {
@@ -98,6 +98,10 @@ const Mutation = {
       maxAge: 1000 * 60 * 60 * 24 * 365
     });
     return user;
+  },
+  async signOut(parent: any, args: any, context: Context, info: any) {
+    context.response.clearCookie('token');
+    return { message: 'Signed out' };
   }
 };
 
