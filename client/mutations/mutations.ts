@@ -62,3 +62,13 @@ export const CREATE_USER_MUTATION = gql`
     }
   }
 `;
+
+export const SIGN_IN_MUTATION = gql`
+  mutation SIGN_IN_MUTATION($email: String!, $password: String!) {
+    signin(email: $email, password: $password) {
+      id
+      email
+      name
+    }
+  }
+`;

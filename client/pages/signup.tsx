@@ -1,14 +1,15 @@
-import { default as SignupForm } from '../components/Signup/Signup';
+import { default as SignupForm } from '../components/SignUp/SignUp';
+import { default as SigninForm } from '../components/SignIn/SignIn';
+
 import { Columms } from '../shared/shared.style';
 
-const Signup = () => {
+const SignUp = () => {
   return (
     <Columms>
       <SignupForm />
-      <SignupForm />
-      <SignupForm />
+      <SigninForm />
     </Columms>
   );
 };
 
-export default Signup;
+export default SignUp;
