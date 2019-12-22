@@ -19,7 +19,7 @@ export const Form = styled.form`
   font-weight: 600;
   label {
     display: block;
-    margin-bottom: 1rem;
+    margin-top: 1rem;
   }
   input,
   textarea,
@@ -42,6 +42,7 @@ export const Form = styled.form`
     font-size: 2rem;
     font-weight: 600;
     padding: 0.5rem 1.2rem;
+    margin-top: 1rem;
   }
   fieldset {
     border: 0;
