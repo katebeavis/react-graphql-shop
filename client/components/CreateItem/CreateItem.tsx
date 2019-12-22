@@ -2,7 +2,7 @@ import { useState, SyntheticEvent } from 'react';
 import { useMutation } from 'react-apollo';
 import { useRouter } from 'next/router';
 
-import { Form } from './CreateItem.style';
+import { Form } from '../../shared/shared.style';
 import { CREATE_ITEM_MUTATION } from '../../mutations/mutations';
 import Error from '../Error/Error';
 import { ITEM_ROUTE } from '../../constants/routes';
