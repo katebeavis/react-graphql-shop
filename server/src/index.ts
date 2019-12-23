@@ -15,6 +15,7 @@ const server = createServer();
 
 server.express.use(cookieParser());
 server.express.use((req: UserAuthRequest, res, next) => {
+  // TODO refactor into auth helper
   const { token } = req.cookies;
   if (token) {
     const { userId } = jwt.verify(token, process.env.APP_SECRET);
