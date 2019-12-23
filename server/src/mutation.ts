@@ -1,6 +1,7 @@
 import * as dotenv from 'dotenv';
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { randomBytes } = require('crypto');
 
 dotenv.config();
 
@@ -54,12 +55,15 @@ const Mutation = {
           name,
           email: email.toLowerCase(),
           password: hashedPassword,
-          permissions: { set: [USER] }
+          permissions: {
+            set: [USER]
+          }
         }
       },
       info
     );
     const userId = user.id;
+    // TODO refactor into auth helper
     const token = jwt.sign(
       {
         userId
@@ -80,7 +84,7 @@ const Mutation = {
       }
     });
     if (!user) {
-      throw new Error(`No user with that email`);
+      throw new Error(`No user with email ${email}`);
     }
     const valid = await bcrypt.compare(password, user.password);
     if (!valid) {
@@ -102,6 +106,61 @@ const Mutation = {
   async signOut(parent: any, args: any, context: Context, info: any) {
     context.response.clearCookie('token');
     return { message: 'Signed out' };
+  },
+  async requestResetToken(parent: any, args: any, context: Context, info: any) {
+    const { email } = args;
+    const user = await context.db.query.user({
+      where: {
+        email
+      }
+    });
+    if (!user) {
+      throw new Error(`No user with email ${email}`);
+    }
+    const resetToken = await randomBytes(20).toString('hex');
+    const resetTokenExpiry = Date.now() + 3600000;
+    await context.db.mutation.updateUser({
+      where: { email },
+      data: { resetToken, resetTokenExpiry }
+    });
+    return { message: 'success' };
+  },
+  async resetPassword(parent: any, args: any, context: Context, info: any) {
+    const { resetToken, password, confirmPassword } = args;
+    if (password !== confirmPassword) {
+      throw new Error(`Passwords do not match`);
+    }
+    const [user] = await context.db.query.users({
+      where: {
+        resetToken,
+        resetTokenExpiry_gte: Date.now() - 3600000
+      }
+    });
+    if (!user) {
+      throw new Error(`Token is invalid or expired`);
+    }
+    const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+    const { email } = user;
+    const updatedUser = await context.db.mutation.updateUser({
+      where: { email },
+      data: {
+        password: hashedPassword,
+        resetToken: null,
+        resetTokenExpiry: null
+      }
+    });
+    const userId = updatedUser.id;
+    const token = jwt.sign(
+      {
+        userId
+      },
+      process.env.APP_SECRET
+    );
+    context.response.cookie('token', token, {
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 24 * 365
+    });
+    return updatedUser;
   }
 };
 
