@@ -1,4 +1,5 @@
 import * as dotenv from 'dotenv';
+import { transport, emailTemplate } from '../src/mail';
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { randomBytes } = require('crypto');
@@ -123,7 +124,20 @@ const Mutation = {
       where: { email },
       data: { resetToken, resetTokenExpiry }
     });
-    return { message: 'success' };
+    try {
+      await transport.sendMail({
+        from: 'anEmail@email.com',
+        to: user.email,
+        subject: 'Reset password',
+        html: emailTemplate(
+          `Reset your passsord by clicking  \n\n <a href="${process.env.APP_URL}/reset?resetToken=${resetToken}">here</a>`
+        )
+      });
+      return { message: 'success' };
+    } catch (error) {
+      // TODO how to deal with error
+      throw new Error(`Error requesting password reset ${error}`);
+    }
   },
   async resetPassword(parent: any, args: any, context: Context, info: any) {
     const { resetToken, password, confirmPassword } = args;
