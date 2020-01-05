@@ -13,14 +13,19 @@ const USER = 'USER';
 interface Context {
   db: any;
   response: any;
+  request: any;
 }
 
 // TODO add types
 const Mutation = {
   async createItem(parent: any, args: any, context: Context, info: any) {
+    const { userId } = context.request;
+    if (!userId) {
+      throw new Error('You must be logged in');
+    }
     const item = await context.db.mutation.createItem(
       {
-        data: { ...args }
+        data: { user: { connect: { id: userId } }, ...args }
       },
       info
     );
