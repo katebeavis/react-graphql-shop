@@ -10,12 +10,14 @@ import {
 import { NavStyles, SLink } from './Nav.style';
 import useAuth from '../../customHooks/useAuth';
 import SignOut from '../SignOut/SignOut';
+import Error from '../Error/Error';
 
 const Nav = () => {
-  const [{ loading, authUser }] = useAuth();
+  const [loading, error, data] = useAuth();
   if (loading) return null;
-  const isAuthenticated = authUser.userDetails;
-  const name = isAuthenticated ? authUser.userDetails.name : null;
+  if (error) return <Error error={error} />;
+  const isAuthenticated = data.userDetails;
+  const name = isAuthenticated ? data.userDetails.name : null;
   console.log(name);
   return (
     <NavStyles>
