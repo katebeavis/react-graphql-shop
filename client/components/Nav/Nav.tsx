@@ -7,7 +7,7 @@ import {
   ORDERS_ROUTE,
   ME_ROUTE
 } from '../../constants/routes';
-import { NavStyles, SLink } from './style';
+import { NavStyles, SLink } from './Nav.style';
 import useAuth from '../../customHooks/useAuth';
 import SignOut from '../SignOut/SignOut';
 
