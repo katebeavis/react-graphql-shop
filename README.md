@@ -1,1 +1,1 @@
-# react-graphql-shop [![Dependabot Status](https://badgen.net/dependabot/katebeavis/react-graphql-shop/224521818?icon=dependabot)](https://app.dependabot.com/accounts/katebeavis/repos/224521818)
+# react-graphql-shop [![Dependabot Status](https://badgen.net/dependabot/katebeavis/react-graphql-shop/224521818?icon=dependabot)](https://app.dependabot.com/accounts/katebeavis/repos/224521818) [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
