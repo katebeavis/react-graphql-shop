@@ -9,11 +9,16 @@
     "debug": "nodemon -e js,graphql -x ts-node --inspect",
     "dev": "concurrently \"NODE_TLS_REJECT_UNAUTHORIZED=0 yarn start\" \"yarn playground\"",
     "playground": "NODE_TLS_REJECT_UNAUTHORIZED=0 graphql playground --dotenv .env",
-    "test": "jest --passWithNoTests",
+    "test": "jest --config='src/jest/config.js'",
     "deploy": "NODE_TLS_REJECT_UNAUTHORIZED=0 prisma deploy"
   },
   "dependencies": {
+    "@babel/plugin-proposal-export-default-from": "^7.7.4",
+    "@babel/preset-env": "^7.7.7",
+    "@babel/preset-typescript": "^7.7.7",
+    "@testing-library/jest-dom": "^4.2.4",
     "@types/cookie-parser": "^1.4.2",
+    "@types/jest": "^24.0.25",
     "@types/jsonwebtoken": "^8.3.5",
     "@types/node": "^12.12.14",
     "babel-preset-env": "^1.7.0",
@@ -24,6 +29,7 @@
     "graphql": "^14.5.8",
     "graphql-cli": "^3.0.14",
     "graphql-yoga": "^1.18.3",
+    "jest": "^24.9.0",
     "jsonwebtoken": "^8.5.1",
     "nodemailer": "^6.4.2",
     "prisma-binding": "^2.3.16",
@@ -31,28 +37,6 @@
     "typescript": "^3.7.2"
   },
   "devDependencies": {
-    "@types/jest": "^24.0.23",
-    "jest": "^24.9.0",
-    "jest-transform-graphql": "^2.1.0",
     "nodemon": "^2.0.1"
-  },
-  "babel": {
-    "presets": [
-      "env"
-    ]
-  },
-  "jest": {
-    "setupFilesAfterEnv": [
-      "<rootDir>/jest.setup.js"
-    ],
-    "testPathIgnorePatterns": [
-      "<rootDir>/.next/",
-      "<rootDir>/node_modules/"
-    ],
-    "transform": {
-      "\\.(gql|graphql)$": "jest-transform-graphql",
-      ".*": "babel-jest",
-      "^.+\\.js?$": "babel-jest"
-    }
   }
 }

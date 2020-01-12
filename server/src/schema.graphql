@@ -10,6 +10,7 @@ type Query {
   item(where: ItemWhereUniqueInput!): Item
   itemsConnection(where: ItemWhereInput): ItemConnection!
   userDetails: User
+  users: [User]!
 }
 
 type Mutation {
