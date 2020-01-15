@@ -5,7 +5,7 @@
     "@commitlint/cli": "^8.3.4",
     "@commitlint/config-conventional": "^8.3.4",
     "concurrently": "^5.0.2",
-    "husky": "^4.0.7"
+    "husky": "^4.0.9"
   },
   "devDependencies": {},
   "scripts": {
