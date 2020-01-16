@@ -2,7 +2,7 @@
   "name": "react-graphql-shop",
   "version": "1.0.0",
   "dependencies": {
-    "@commitlint/cli": "^8.3.4",
+    "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
     "concurrently": "^5.0.2",
     "husky": "^4.0.9"
