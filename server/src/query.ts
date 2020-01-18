@@ -1,4 +1,5 @@
 import { forwardTo } from 'prisma-binding';
+import hasPermission from './helper';
 
 interface Context {
   db: any;
@@ -17,10 +18,17 @@ const Query = {
   },
   itemsConnection: forwardTo('db'),
   async userDetails(parent: any, args: any, context: Context, info: any) {
-    const { userId } = context.request;
+    const { user, userId } = context.request;
     if (!userId) return null;
-    const user = await context.db.query.user({ where: { id: userId } }, info);
     return user;
+  },
+  async users(parent: any, args: any, context: Context, info: any) {
+    const { user, userId } = context.request;
+    if (!userId) {
+      throw new Error("You don't have the permissions to do that");
+    }
+    hasPermission(user.permissions, ['ADMIN', 'PERMISSION_UPDATE']);
+    return context.db.query.users({}, info);
   }
 };
 
