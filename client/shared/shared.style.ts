@@ -73,3 +73,30 @@ export const Columms = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-gap: 20px;
 `;
+
+export const Button = styled.button`
+  background: red;
+  color: white;
+  font-weight: 500;
+  border: 0;
+  border-radius: 0;
+  text-transform: uppercase;
+  font-size: 2rem;
+  padding: 0.8rem 1.5rem;
+  transform: skew(-2deg);
+  display: inline-block;
+  transition: all 0.5s;
+  &[disabled] {
+    opacity: 0.5;
+  }
+`;
+
+export const CloseButton = styled.button`
+  background: black;
+  color: white;
+  font-size: 3rem;
+  border: 0;
+  position: absolute;
+  z-index: 2;
+  right: 0;
+`;
