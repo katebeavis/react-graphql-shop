@@ -1,5 +1,7 @@
 import { forwardTo } from 'prisma-binding';
+
 import hasPermission from './helper';
+import { ADMIN, PERMISSION_UPDATE } from './constants';
 
 interface Context {
   db: any;
@@ -27,7 +29,7 @@ const Query = {
     if (!userId) {
       throw new Error("You don't have the permissions to do that");
     }
-    hasPermission(user.permissions, ['ADMIN', 'PERMISSION_UPDATE']);
+    hasPermission(user.permissions, [ADMIN, PERMISSION_UPDATE]);
     return context.db.query.users({}, info);
   }
 };

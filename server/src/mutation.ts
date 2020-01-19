@@ -1,6 +1,7 @@
 import * as dotenv from 'dotenv';
 import { transport, emailTemplate } from '../src/mail';
 import hasPermission from './helper';
+import { ADMIN, ITEM_DELETE, PERMISSION_UPDATE } from './constants';
 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -53,7 +54,7 @@ const Mutation = {
     );
     const ownsItems = item.user.id === userId;
     const hasPermissions = user.permissions.some(permission =>
-      ['ADMIN', 'ITEM_DELETE'].includes(permission)
+      [ADMIN, ITEM_DELETE].includes(permission)
     );
     if (!ownsItems || !hasPermissions) {
       throw new Error("you can't do that");
@@ -208,7 +209,7 @@ const Mutation = {
       },
       info
     );
-    hasPermission(user.permissions, ['ADMIN', 'PERMISSION_UPDATE']);
+    hasPermission(user.permissions, [ADMIN, PERMISSION_UPDATE]);
     return context.db.mutation.updateUser(
       {
         data: { permissions: { set: args.permissions } },
