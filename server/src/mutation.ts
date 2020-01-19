@@ -1,6 +1,7 @@
 import * as dotenv from 'dotenv';
 import { transport, emailTemplate } from '../src/mail';
 import hasPermission from './helper';
+import { ADMIN, ITEM_DELETE, PERMISSION_UPDATE } from './constants';
 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -46,13 +47,25 @@ const Mutation = {
   },
   async deleteItem(parent: any, args: any, context: Context, info: any) {
     const { id } = args;
-    const item = await context.db.mutation.deleteItem(
+    const { user, userId } = context.request;
+    const item = await context.db.query.item(
+      { where: { id } },
+      `{ user { id } }`
+    );
+    const ownsItems = item.user.id === userId;
+    const hasPermissions = user.permissions.some(permission =>
+      [ADMIN, ITEM_DELETE].includes(permission)
+    );
+    if (!ownsItems || !hasPermissions) {
+      throw new Error("you can't do that");
+    }
+    const itemToDelete = await context.db.mutation.deleteItem(
       {
         where: { id }
       },
       info
     );
-    return item;
+    return itemToDelete;
   },
   async signUp(parent: any, args: any, context: Context, info: any) {
     const { name, email, password } = args;
@@ -196,7 +209,7 @@ const Mutation = {
       },
       info
     );
-    hasPermission(user.permissions, ['ADMIN', 'PERMISSION_UPDATE']);
+    hasPermission(user.permissions, [ADMIN, PERMISSION_UPDATE]);
     return context.db.mutation.updateUser(
       {
         data: { permissions: { set: args.permissions } },
