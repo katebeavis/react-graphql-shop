@@ -1,7 +1,10 @@
 import { useState } from 'react';
+import { useMutation } from 'react-apollo';
 
 import { Button } from './UserPermissions.style';
 import { IUser } from '../../shared/types';
+import { UPDATE_PERMISSIONS_MUTATION } from '../../mutations/mutations';
+import Error from '../Error/Error';
 
 interface UserProps {
   user: IUser;
@@ -13,6 +16,12 @@ const UserPermissions = ({ user, permissions }: UserProps) => {
     user.permissions
   );
 
+  const [mutate, { loading, error }] = useMutation(UPDATE_PERMISSIONS_MUTATION);
+
+  if (error) {
+    return <Error error={error} />;
+  }
+
   const handlePermissionChange = (e: any) => {
     const { checked, value } = e.target;
     let updatedPermissions = [...permissionArray];
@@ -23,6 +32,16 @@ const UserPermissions = ({ user, permissions }: UserProps) => {
         ));
     setPermissionArray(updatedPermissions);
   };
+
+  const handleClick = () => {
+    mutate({
+      variables: {
+        permissions: permissionArray,
+        userId: user.id
+      }
+    });
+  };
+
   return (
     <tr>
       <td>{user.name}</td>
@@ -34,13 +53,16 @@ const UserPermissions = ({ user, permissions }: UserProps) => {
               type='checkbox'
               checked={permissionArray.includes(permission)}
               value={permission}
+              id={`${user.id}-permission-${permission}`}
               onChange={handlePermissionChange}
             />
           </label>
         </td>
       ))}
       <td>
-        <Button>Update</Button>
+        <Button disabled={loading} onClick={handleClick}>
+          Updat{loading ? 'ing' : 'e'}
+        </Button>
       </td>
     </tr>
   );

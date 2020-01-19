@@ -1,5 +1,7 @@
 import * as dotenv from 'dotenv';
 import { transport, emailTemplate } from '../src/mail';
+import hasPermission from './helper';
+
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { randomBytes } = require('crypto');
@@ -180,6 +182,28 @@ const Mutation = {
       maxAge: 1000 * 60 * 60 * 24 * 365
     });
     return updatedUser;
+  },
+  async updatePermissions(parent: any, args: any, context: Context, info: any) {
+    const { userId } = context.request;
+    if (!userId) {
+      throw new Error(`Must be logged in`);
+    }
+    const user = await context.db.query.user(
+      {
+        where: {
+          id: userId
+        }
+      },
+      info
+    );
+    hasPermission(user.permissions, ['ADMIN', 'PERMISSION_UPDATE']);
+    return context.db.mutation.updateUser(
+      {
+        data: { permissions: { set: args.permissions } },
+        where: { id: args.userId }
+      },
+      info
+    );
   }
 };
 
