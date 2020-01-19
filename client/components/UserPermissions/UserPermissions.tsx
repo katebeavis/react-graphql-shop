@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useMutation } from 'react-apollo';
 
-import { Button } from './UserPermissions.style';
+import { Button } from '../../shared/shared.style';
 import { IUser } from '../../shared/types';
 import { UPDATE_PERMISSIONS_MUTATION } from '../../mutations/mutations';
 import Error from '../Error/Error';

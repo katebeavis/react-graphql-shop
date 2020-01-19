@@ -3,6 +3,7 @@ import Router from 'next/router';
 import NProgress from 'nprogress';
 
 import Nav from '../Nav/Nav';
+import Cart from '../Cart/Cart';
 
 import { Logo, Bar, SubBar } from './style';
 
@@ -29,7 +30,7 @@ const Header = () => (
     <SubBar>
       <p>Search</p>
     </SubBar>
-    <>Cart</>
+    <Cart />
   </>
 );
 
