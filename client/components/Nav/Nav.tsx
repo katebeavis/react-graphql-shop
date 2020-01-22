@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useMutation } from 'react-apollo';
 
 import {
   ITEMS_ROUTE,
@@ -11,13 +12,18 @@ import { NavStyles, SLink } from './Nav.style';
 import useAuth from '../../customHooks/useAuth';
 import SignOut from '../SignOut/SignOut';
 import Error from '../Error/Error';
+import { TOGGLE_CART_MUTATION } from '../../mutations/mutations';
 
 const Nav = () => {
   const [loading, error, data] = useAuth();
+  const [toggleCart] = useMutation(TOGGLE_CART_MUTATION);
+
   if (loading) return null;
   if (error) return <Error error={error} />;
+
   const isAuthenticated = data.userDetails;
   const name = isAuthenticated ? data.userDetails.name : null;
+
   console.log(name);
   return (
     <NavStyles>
@@ -37,6 +43,7 @@ const Nav = () => {
             <SLink>Account</SLink>
           </Link>
           <SignOut />
+          <button onClick={() => toggleCart()}>Cart</button>
         </>
       )}
       {!isAuthenticated && (
