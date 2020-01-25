@@ -1,4 +1,4 @@
-const hasPermission = (
+export const hasPermission = (
   permissions: string[],
   requiredPermissions: string[]
 ) => {
@@ -10,5 +10,3 @@ const hasPermission = (
   }
   return matchedPermissions;
 };
-
-export default hasPermission;

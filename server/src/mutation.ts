@@ -1,7 +1,9 @@
 import * as dotenv from 'dotenv';
+
 import { transport, emailTemplate } from '../src/mail';
-import hasPermission from './helper';
+import { hasPermission } from './helpers/permissions';
 import { ADMIN, ITEM_DELETE, PERMISSION_UPDATE } from './constants';
+import { authenticateUser } from './helpers/auth';
 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -23,9 +25,7 @@ interface Context {
 const Mutation = {
   async createItem(parent: any, args: any, context: Context, info: any) {
     const { userId } = context.request;
-    if (!userId) {
-      throw new Error('You must be logged in');
-    }
+    authenticateUser(userId);
     const item = await context.db.mutation.createItem(
       {
         data: { user: { connect: { id: userId } }, ...args }
@@ -198,9 +198,7 @@ const Mutation = {
   },
   async updatePermissions(parent: any, args: any, context: Context, info: any) {
     const { userId } = context.request;
-    if (!userId) {
-      throw new Error(`Must be logged in`);
-    }
+    authenticateUser(userId);
     const user = await context.db.query.user(
       {
         where: {
@@ -214,6 +212,32 @@ const Mutation = {
       {
         data: { permissions: { set: args.permissions } },
         where: { id: args.userId }
+      },
+      info
+    );
+  },
+  async addItemToCart(parent: any, args: any, context: Context, info: any) {
+    const { userId } = context.request;
+    authenticateUser(userId);
+    const [existingCartItem] = await context.db.query.cartItems({
+      where: { user: { id: userId }, item: { id: args.id } }
+    });
+    if (existingCartItem) {
+      return context.db.mutation.updateCartItem(
+        {
+          where: { id: existingCartItem.id },
+          data: { quantity: existingCartItem.quantity + 1 }
+        },
+        info
+      );
+    }
+
+    return context.db.mutation.createCartItem(
+      {
+        data: {
+          user: { connect: { id: userId } },
+          item: { connect: { id: args.id } }
+        }
       },
       info
     );

@@ -4,6 +4,7 @@ import { Title, Item, PriceTag, ButtonList } from './ItemCard.style';
 import { ITEM_ROUTE } from '../../constants/routes';
 import formatCurrency from '../../lib/formatCurrency';
 import DeleteItem from '../DeleteItem/DeleteItem';
+import AddItemToCart from '../AddItemToCart/AddItemToCart';
 
 interface ItemCard {
   item: Item;
@@ -33,7 +34,7 @@ const ItemCard = ({ item }: ItemCard) => {
         <Link href={{ pathname: 'update', query: { id } }}>
           <a>Edit ✏️</a>
         </Link>
-        <button>Add to cart</button>
+        <AddItemToCart id={id} />
         <DeleteItem id={id}>Delete item</DeleteItem>
       </ButtonList>
     </Item>
