@@ -14,7 +14,8 @@
     "start:server": "cd server && yarn && yarn dev",
     "test": "yarn test:client &&  yarn test:server jest --passWithNoTests",
     "test:client": "cd client && yarn test",
-    "test:server": "cd server && yarn test"
+    "test:server": "cd server && yarn test",
+    "deploy": "cd server && yarn deploy"
   },
   "repository": {
     "type": "git",

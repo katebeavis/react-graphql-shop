@@ -1,6 +1,6 @@
 import { forwardTo } from 'prisma-binding';
 
-import hasPermission from './helper';
+import { hasPermission } from './helpers/permissions';
 import { ADMIN, PERMISSION_UPDATE } from './constants';
 
 interface Context {
