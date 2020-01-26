@@ -9,13 +9,13 @@ import {
   ME_ROUTE
 } from '../../constants/routes';
 import { NavStyles, SLink } from './Nav.style';
-import useAuth from '../../customHooks/useAuth';
+import useUser from '../../customHooks/useUser';
 import SignOut from '../SignOut/SignOut';
 import Error from '../Error/Error';
 import { TOGGLE_CART_MUTATION } from '../../mutations/mutations';
 
 const Nav = () => {
-  const [loading, error, data] = useAuth();
+  const { loading, error, data } = useUser();
   const [toggleCart] = useMutation(TOGGLE_CART_MUTATION);
 
   if (loading) return null;
