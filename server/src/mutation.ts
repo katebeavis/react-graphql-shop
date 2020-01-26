@@ -241,6 +241,31 @@ const Mutation = {
       },
       info
     );
+  },
+  async removeItemFromCart(
+    parent: any,
+    args: any,
+    context: Context,
+    info: any
+  ) {
+    const cartItem = await context.db.query.cartItem(
+      {
+        where: {
+          id: args.id
+        }
+      },
+      `{ id, user { id }}`
+    );
+    if (!cartItem) throw new Error('No CartItem Found!');
+    if (cartItem.user.id !== context.request.userId) {
+      throw new Error('Cannot delete');
+    }
+    return context.db.mutation.deleteCartItem(
+      {
+        where: { id: args.id }
+      },
+      info
+    );
   }
 };
 
