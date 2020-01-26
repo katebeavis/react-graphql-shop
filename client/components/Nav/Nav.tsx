@@ -21,10 +21,10 @@ const Nav = () => {
   if (loading) return null;
   if (error) return <Error error={error} />;
 
-  const isAuthenticated = data.userDetails;
-  const name = isAuthenticated ? data.userDetails.name : null;
+  const { userDetails } = data;
 
-  console.log(name);
+  const isAuthenticated = !!userDetails;
+
   return (
     <NavStyles>
       <Link href={ITEMS_ROUTE}>

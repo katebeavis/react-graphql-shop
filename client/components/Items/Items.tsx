@@ -7,6 +7,7 @@ import { Container, ItemsList } from './Items.style';
 import Pagination from '../Pagination/Pagination';
 import Error from '../Error/Error';
 import { PER_PAGE } from '../../config';
+import { IItem } from '../../shared/types';
 
 const Items = () => {
   const router = useRouter();
@@ -30,7 +31,7 @@ const Items = () => {
     <Container>
       <Pagination currentPage={currentPage} />
       <ItemsList>
-        {data.items.map((item: any, index: number) => (
+        {data.items.map((item: IItem, index: number) => (
           <ItemCard key={index} item={item} />
         ))}
       </ItemsList>

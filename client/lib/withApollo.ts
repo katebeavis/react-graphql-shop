@@ -1,5 +1,6 @@
 import withApollo from 'next-with-apollo';
 import ApolloClient from 'apollo-boost';
+import { getDataFromTree } from '@apollo/react-ssr';
 
 import { GRAPHQL_ENDPOINT } from '../config';
 import { LOCAL_STATE_QUERY } from '../queries/queries';
@@ -30,10 +31,10 @@ const createClient = ({ headers }: any) => {
         }
       },
       defaults: {
-        cartOpen: true
+        cartOpen: false
       }
     }
   });
 };
 
-export default withApollo(createClient);
+export default withApollo(createClient, { getDataFromTree });
