@@ -1,5 +1,6 @@
 import formatCurrency from '../../lib/formatCurrency';
 import { SCartItem } from './CartItem.style';
+import RemoveItemFromCart from '../RemoveItemFromCart/RemoveItemFromCart';
 
 interface CartItemProps {
   id: string;
@@ -32,6 +33,7 @@ const CartItem = ({ id, quantity, item }: CartItemProps) => {
           </em>
         </p>
       </>
+      <RemoveItemFromCart id={id} />
     </SCartItem>
   );
 };

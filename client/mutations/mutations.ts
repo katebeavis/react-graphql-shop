@@ -135,3 +135,11 @@ export const ADD_ITEM_TO_CART_MUTATION = gql`
     }
   }
 `;
+
+export const REMOVE_ITEM_FROM_CART_MUTATION = gql`
+  mutation REMOVE_ITEM_FROM_CART_MUTATION($id: ID!) {
+    removeItemFromCart(id: $id) {
+      id
+    }
+  }
+`;
