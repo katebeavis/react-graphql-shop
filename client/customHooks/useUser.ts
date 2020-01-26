@@ -2,9 +2,9 @@ import { useQuery } from 'react-apollo';
 
 import { CURRENT_USER_QUERY } from '../queries/queries';
 
-const useAuth = () => {
+const useUser = () => {
   const { loading, error, data } = useQuery(CURRENT_USER_QUERY);
-  return [loading, error, data];
+  return { loading, error, data };
 };
 
-export default useAuth;
+export default useUser;
