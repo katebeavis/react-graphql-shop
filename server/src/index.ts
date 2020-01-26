@@ -37,12 +37,17 @@ server.express.use((req: UserAuthRequest, res, next) => {
 // TODO refactor into auth helper
 server.express.use(async (req: UserAuthRequest, res, next) => {
   if (!req.userId) return next();
-  const user = await db.query.user(
-    { where: { id: req.userId } },
-    `{ id, permissions, email, name }`
-  );
-  req.user = user;
-  next();
+  try {
+    const user = await db.query.user(
+      { where: { id: req.userId } },
+      `{ id, permissions, email, name, cart { id quantity, item { id price image title description } } }`
+    );
+    req.user = user;
+    next();
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
 });
 
 server.start(
