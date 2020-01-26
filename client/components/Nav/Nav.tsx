@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import { useMutation } from 'react-apollo';
 
+import CartCount from '../CartCount/CartCount';
+
 import {
   ITEMS_ROUTE,
   SELL_ROUTE,
@@ -43,7 +45,16 @@ const Nav = () => {
             <SLink>Account</SLink>
           </Link>
           <SignOut />
-          <button onClick={() => toggleCart()}>Cart</button>
+
+          <button onClick={() => toggleCart()}>
+            Cart{' '}
+            <CartCount
+              count={userDetails.cart.reduce(
+                (tally: number, cartItem: any) => tally + cartItem.quantity,
+                0
+              )}
+            ></CartCount>
+          </button>
         </>
       )}
       {!isAuthenticated && (
